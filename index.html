@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe | Timeless watches</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- [web:11] -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --neon-glow: 0 0 25px rgba(102, 126, 234, 0.4);
+            --card-height: 520px;
+        }
+        *{box-sizing:border-box;}
+        body{
+            font-family:'Poppins',sans-serif;
+            background:#0a0a0a;
+            color:#fff;
+            line-height:1.6;
+        }
+        .navbar{
+            background:rgba(10,10,10,0.95);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--glass-border);
+            padding:1rem 0;
+        }
+        .navbar-brand{
+            font-family:'Orbitron',monospace;
+            font-weight:700;
+            font-size:1.5rem;
+            background:var(--primary-gradient);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+        .hero{
+            min-height:100vh;
+            background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.7)),
+                       url('https://images.unsplash.com/photo-1610897534349-7759782118b9?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0Y2glMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:0 20px;
+        }
+        .hero-content h1{
+            font-family:'Orbitron',monospace;
+            font-size:clamp(2.5rem,6vw,5rem);
+            font-weight:800;
+            margin-bottom:1.5rem;
+            animation:glow 2s ease-in-out infinite alternate;
+        }
+        .hero-content p{font-size:1.3rem;max-width:600px;margin:0 auto 2.5rem;}
+        @keyframes glow{
+            from{filter:drop-shadow(0 0 20px var(--neon-glow));}
+            to{filter:drop-shadow(0 0 35px var(--neon-glow));}
+        }
+        .featured-section{
+            padding:80px 0;
+            background:linear-gradient(135deg,rgba(20,20,40,0.9) 0%,rgba(10,10,20,0.9) 100%);
+        }
+        .products-section{
+            padding:80px 0;
+            max-width:1400px;
+            margin:0 auto;
+        }
+        .product-tabs{
+            border-bottom:1px solid var(--glass-border);
+            margin-bottom:50px;
+        }
+        .product-tabs .nav-link{
+            color:rgba(255,255,255,0.7);
+            font-weight:500;
+            padding:15px 30px;
+            border:none;
+            border-radius:0;
+            margin:0 5px;
+            background:var(--glass-bg);
+            backdrop-filter:blur(15px);
+            transition:all 0.3s ease;
+        }
+        .product-tabs .nav-link.active{
+            color:#fff;
+            background:var(--primary-gradient);
+            box-shadow:var(--neon-glow);
+        }
+        .product-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+            gap:30px;
+            margin-bottom:60px;
+        }
+        .product-card{
+            height:var(--card-height);
+            perspective:1200px;
+        }
+        .card-inner{
+            height:100%;
+            transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+            transform-style:preserve-3d;
+            border-radius:24px;
+            background:var(--glass-bg);
+            backdrop-filter:blur(25px);
+            border:1px solid var(--glass-border);
+            overflow:hidden;
+            position:relative;
+        }
+        .product-card:hover .card-inner{
+            transform:rotateY(8deg) rotateX(5deg);
+        }
+        .card-front{
+            height:100%;
+            padding:32px;
+            display:flex;
+            flex-direction:column;
+        }
+        .product-img-container{
+            height:260px;
+            width:100%;
+            overflow:hidden;
+            border-radius:20px;
+            margin-bottom:28px;
+            background:rgba(255,255,255,0.05);
+        }
+        .product-img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            object-position:center;
+            transition:transform 0.5s ease;
+        }
+        .product-card:hover .product-img{
+            transform:scale(1.08);
+        }
+        .product-name{
+            font-size:1.35rem;
+            font-weight:600;
+            margin-bottom:12px;
+            color:#fff;
+        }
+        .price{
+            font-family:'Orbitron',monospace;
+            font-size:1.75rem;
+            font-weight:800;
+            color:#00ff88;
+            margin-bottom:30px;
+        }
+        .add-btn{
+            background:var(--primary-gradient);
+            border:none;
+            border-radius:50px;
+            padding:16px 32px;
+            font-size:1rem;
+            font-weight:600;
+            margin-top:auto;
+            transition:all 0.3s ease;
+            position:relative;
+            overflow:hidden;
+        }
+        .add-btn:hover{
+            transform:translateY(-3px);
+            box-shadow:var(--neon-glow);
+        }
+        /* NEW FEATURES CSS (aligned) */
+        .features-section{
+            padding:100px 0;
+            background:linear-gradient(135deg,rgba(20,20,40,0.8) 0%,rgba(40,20,60,0.8) 100%);
+        }
+        .features-section .section-heading{
+            font-family:'Orbitron',monospace;
+            font-size:3rem;
+        }
+        .feature-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:32px;
+            margin-top:20px;
+        }
+        .feature-item{
+            text-align:center;
+            padding:40px 24px;
+            background:var(--glass-bg);
+            backdrop-filter:blur(20px);
+            border:1px solid var(--glass-border);
+            border-radius:24px;
+            min-height:230px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            transition:all 0.3s ease;
+        }
+        .feature-item:hover{
+            transform:translateY(-10px);
+            border-color:rgba(102,126,234,0.4);
+            box-shadow:0 25px 50px rgba(0,0,0,0.4);
+        }
+        .feature-icon{
+            font-size:3rem;
+            background:var(--primary-gradient);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            margin-bottom:16px;
+        }
+        .feature-item h3{
+            font-size:1.3rem;
+            margin-bottom:10px;
+        }
+        .feature-item p{
+            font-size:0.95rem;
+            opacity:0.8;
+        }
+        .fade-in{
+            opacity:0;
+            transform:translateY(40px);
+            transition:all 0.6s ease-out;
+        }
+        .fade-in.visible{
+            opacity:1;
+            transform:translateY(0);
+        }
+        .load-more{
+            display:block;
+            margin:60px auto 0;
+            background:transparent;
+            border:2px solid var(--glass-border);
+            color:#fff;
+            padding:18px 50px;
+            font-size:1.1rem;
+            font-weight:500;
+            border-radius:50px;
+            transition:all 0.3s ease;
+        }
+        .load-more:hover{
+            background:var(--primary-gradient);
+            transform:translateY(-2px);
+            box-shadow:var(--neon-glow);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">LUXE TIME<span style="color:#00ff88;"><Time></Time></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section id="home" class="hero">
+    <div class="container fade-in">
+        <div class="hero-content">
+            <h1>Future of Time</h1>
+            <p>Experience tomorrow's luxury today with cutting-edge precision engineering.</p>
+            <a href="#products" class="btn add-btn fs-5 px-5 py-3 mt-4">Shop Collection</a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-section">
+    <div class="container">
+        <h2 class="text-center mb-5 fade-in" style="font-family:'Orbitron';font-size:2.5rem;">Featured Picks</h2>
+        <div class="row mb-5" id="featured-products"></div>
+    </div>
+</section>
+
+<section id="products" class="products-section">
+    <div class="container">
+        <div class="d-flex justify-content-center mb-5 fade-in">
+            <ul class="nav nav-pills product-tabs">
+                <li class="nav-item"><a class="nav-link active" href="#all" onclick="filterProducts('all',event)">All</a></li>
+                <li class="nav-item"><a class="nav-link" href="#luxury" onclick="filterProducts('luxury',event)">Luxury</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sport" onclick="filterProducts('sport',event)">Sport</a></li>
+                <li class="nav-item"><a class="nav-link" href="#classic" onclick="filterProducts('classic',event)">Classic</a></li>
+            </ul>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+        <button class="btn load-more fade-in" onclick="loadMoreProducts()" id="load-more-btn">Load More Watches</button>
+    </div>
+</section>
+
+<!-- NEW FEATURES HTML -->
+<section id="features" class="features-section">
+    <div class="container">
+        <div class="text-center mb-4 fade-in">
+            <h2 class="section-heading">Exceptional Craftsmanship</h2>
+            <p class="lead opacity-75 mt-2">Where innovation meets timeless tradition</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-item fade-in">
+                <i class="bx bxs-diamond feature-icon"></i>
+                <h3>Swiss Precision</h3>
+                <p>Hand-crafted movements with COSC-certified accuracy for perfect timekeeping.</p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <i class="bx bx-microchip feature-icon"></i>
+                <h3>Advanced Tech</h3>
+                <p>Smart connectivity, haptics, and intelligent power reserve for daily use.</p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <i class="bx bx-shield-alt-2 feature-icon"></i>
+                <h3>Global Service</h3>
+                <p>Lifetime warranty with worldwide service centers and complimentary checkups.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="cartModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:var(--glass-bg);backdrop-filter:blur(25px);border:1px solid var(--glass-border);">
+            <div class="modal-header">
+                <h5>Shopping Cart</h5>
+                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items"></div>
+                <hr class="opacity-25">
+                <div class="d-flex justify-content-between">
+                    <h4>Total: $<span id="cart-total">0</span></h4>
+                    <button class="btn add-btn">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const allProducts = [
+    { id:1,name:'Quantum Chrono',price:1299,category:'luxury',img:'https://images.unsplash.com/photo-1751437819603-aaf4dfa8420a?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:2,name:'Nebula Diver',price:899,category:'sport',img:'https://images.unsplash.com/photo-1763576136946-05aaa951094e?q=80&w=1132&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:3,name:'Eclipse Sport',price:1099,category:'sport',img:'https://images.unsplash.com/photo-1662990209247-7ddb7ca0fccd?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmxhY2slMjB3YXRjaHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id:4,name:'Stellar Automatic',price:1499,category:'luxury',img:'https://images.unsplash.com/photo-1698729616509-060e8f58e6c0?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:5,name:'Nova Heritage',price:799,category:'classic',img:'https://images.unsplash.com/photo-1607776931376-f5f5ff1ec0fb?q=80&w=645&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:6,name:'Phantom Moonphase',price:1999,category:'luxury',img:'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&w=500&h=260&fit=crop&q=80' },
+    { id:7,name:'Velocity Pro',price:999,category:'sport',img:'https://images.unsplash.com/photo-1620404426680-fa32422d7882?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:8,name:'Eternal Classic',price:699,category:'classic',img:'https://images.unsplash.com/photo-1653651461471-d4dffd0e5ab0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id:9,name:'Cosmic Tourbillon',price:2999,category:'luxury',img:'https://media.istockphoto.com/id/173635228/photo/over-the-shoulder-of-a-powerful-man.jpg?s=2048x2048&w=is&k=20&c=5p8JujZkMwMFZvvJERbkwxY_Ibg8FkKm25neCA9ijm0=' },
+    { id:10,name:'Racer Chrono',price:1199,category:'sport',img:'https://images.unsplash.com/photo-1526743655626-e3d757b13d61?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+]; /* [web:25][web:33] */
+
+let currentProducts = allProducts;
+let visibleCount = 6;
+let cart = [];
+
+function renderProducts(products){
+    const container=document.getElementById('product-grid');
+    container.innerHTML=products.slice(0,visibleCount).map(p=>`
+        <div class="product-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="product-img-container">
+                        <img src="${p.img}" class="product-img" alt="${p.name}" loading="lazy">
+                    </div>
+                    <h3 class="product-name">${p.name}</h3>
+                    <div class="price">$${p.price.toLocaleString()}</div>
+                    <button class="add-btn mt-auto" onclick="addToCart(${p.id})">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterProducts(category,e){
+    if(e){e.preventDefault();}
+    document.querySelectorAll('.product-tabs .nav-link').forEach(l=>l.classList.remove('active'));
+    if(e){e.target.classList.add('active');}
+    currentProducts = category==='all' ? allProducts : allProducts.filter(p=>p.category===category);
+    visibleCount = 6;
+    document.getElementById('load-more-btn').style.display = currentProducts.length>visibleCount?'block':'none';
+    renderProducts(currentProducts);
+}
+
+function loadMoreProducts(){
+    visibleCount += 4;
+    renderProducts(currentProducts);
+    if(visibleCount>=currentProducts.length){
+        document.getElementById('load-more-btn').style.display='none';
+    }
+}
+
+function renderFeatured(){
+    const featured=allProducts.slice(0,4);
+    const container=document.getElementById('featured-products');
+    container.innerHTML=featured.map(p=>`
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="product-card h-100">
+                <div class="card-inner h-100">
+                    <div class="card-front h-100 d-flex flex-column">
+                        <div class="product-img-container flex-shrink-0">
+                            <img src="${p.img}" class="product-img" alt="${p.name}">
+                        </div>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="product-name">${p.name}</h5>
+                                <div class="price">$${p.price.toLocaleString()}</div>
+                            </div>
+                            <button class="add-btn mt-auto" onclick="addToCart(${p.id})">Quick Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addToCart(id){
+    const p=allProducts.find(pr=>pr.id===id);
+    const item=cart.find(i=>i.id===id);
+    if(item)item.quantity++;else cart.push({...p,quantity:1});
+    document.getElementById('cart-count').textContent=cart.reduce((s,i)=>s+i.quantity,0);
+    renderCart();
+}
+
+function renderCart(){
+    const itemsEl=document.getElementById('cart-items');
+    if(!itemsEl) return;
+    const total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
+    if(cart.length===0){
+        itemsEl.innerHTML='<p class="text-center opacity-75">Your cart is empty</p>';
+    }else{
+        itemsEl.innerHTML=cart.map(i=>`
+            <div class="d-flex align-items-center p-3 mb-3" style="background:rgba(255,255,255,0.05);border-radius:16px;">
+                <img src="${i.img}" style="width:60px;height:60px;object-fit:cover;border-radius:12px;margin-right:20px;">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">${i.name}</h6>
+                    <div class="d-flex justify-content-between">
+                        <small>$${i.price} × ${i.quantity}</small>
+                        <strong>$${(i.price*i.quantity).toLocaleString()}</strong>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    const totalEl=document.getElementById('cart-total');
+    if(totalEl) totalEl.textContent=total.toLocaleString();
+}
+
+function toggleCart(){
+    renderCart();
+    new bootstrap.Modal(document.getElementById('cartModal')).show();
+}
+
+function handleScroll(){
+    document.querySelectorAll('.fade-in').forEach(el=>{
+        if(el.getBoundingClientRect().top<window.innerHeight){
+            el.classList.add('visible');
+        }
+    });
+}
+
+renderFeatured();
+renderProducts(currentProducts);
+window.addEventListener('scroll',handleScroll);
+handleScroll();
+</script>
+</body>
+</html>
